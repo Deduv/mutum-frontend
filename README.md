@@ -6,11 +6,18 @@
 ![CSS Modules](https://img.shields.io/badge/CSS_Modules-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white)
 
 ## Project Description
 
 **DevBoard** is a modern, responsive, and highly performant task and project management web application. Built with React and TypeScript, it offers a seamless Apple-inspired user experience for managing software projects, tasks, and team productivity. It integrates with the production **DevBoard API**, providing secure and scalable backend functionality.
+
+## Live Demo
+
+- **Frontend Application**: [https://app.labprojects.dev.br](https://app.labprojects.dev.br)
+- **Backend API**: [https://api.labprojects.dev.br](https://api.labprojects.dev.br)
+- **API Documentation (Swagger)**: [https://api.labprojects.dev.br/docs](https://api.labprojects.dev.br/docs)
 
 ## Features
 
@@ -37,16 +44,26 @@
 - **State Management:** React Hooks
 - **Network:** Native Fetch API
 
-## Architecture
+## System Architecture
+
+The DevBoard ecosystem is split into a highly responsive client-side application and a robust REST API.
+
+- **Frontend (Client)**: Built with **React 18**, **TypeScript**, and **Vite**. Styled via Vanilla CSS Modules.
+- **Backend (Server)**: Built with **FastAPI** (Python) offering automatic Swagger documentation and extremely fast execution.
+- **Database**: Relational data mapped via SQL on **PostgreSQL**.
+- **Authentication**: Stateless, secure **JWT (JSON Web Tokens)** isolating tenant workspaces.
+- **Hosting / Infrastructure**:
+  - The Frontend is continuously deployed globally on **Vercel** (`app.labprojects.dev.br`).
+  - The Backend API runs inside an **AWS EC2** instance (`api.labprojects.dev.br`).
 
 ```mermaid
 graph TD
-    Browser[Browser / Client] --> |HTTPS| Frontend[React Frontend]
-    Frontend --> |REST / JWT| API[DevBoard API on AWS]
+    Browser[Browser / Client] --> |HTTPS| Frontend[React Frontend on Vercel]
+    Frontend --> |REST / JWT| API[DevBoard API on AWS EC2]
     API --> |SQL| Database[(PostgreSQL)]
     
     classDef client fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef react fill:#61DAFB,stroke:#333,stroke-width:2px,color:#000;
+    classDef react fill:#000000,stroke:#333,stroke-width:2px,color:#fff;
     classDef api fill:#FF9900,stroke:#333,stroke-width:2px,color:#000;
     classDef db fill:#336791,stroke:#333,stroke-width:2px,color:#fff;
     
@@ -146,8 +163,10 @@ The application strictly adheres to a predefined design philosophy tailored for 
 
 ## Production Environment
 
-The frontend is built using Vite, resulting in a highly optimized, minified bundle.
-Deployment is managed via automated CI/CD pipelines that push static assets to a CDN for blazing-fast global delivery. 
+The frontend is built using Vite, resulting in a highly optimized, minified bundle (~64kB gzipped).
+The application is automatically deployed to **Vercel**, which provides a blazing-fast global Edge CDN.
+
+All production API calls are securely routed to the official backend domain via HTTPS: `https://api.labprojects.dev.br`.
 
 ## Future Improvements
 
