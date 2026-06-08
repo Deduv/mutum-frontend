@@ -1,50 +1,63 @@
-# React + TypeScript + Vite
+# DevBoard Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Short Description
+A clean, elegant, and modern web interface for the DevBoard application, a system designed for managing projects and tasks. This frontend prototype is built with a minimalist, Apple-like design aesthetic to ensure a professional and distraction-free user experience.
 
-Currently, two official plugins are available:
+## Current Status
+**Stage:** Initial Prototype / Foundation
+Currently, the project contains the foundational UI Design System and Theme System (Light/Dark mode) with atomic components (Button, Input, Card). The showcase is actively being developed before full API integration.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Backend Integration
+This frontend application is specifically designed to consume the **DevBoard API** currently published in production.
+* **Backend API URL:** [https://api.labprojects.dev.br](https://api.labprojects.dev.br)
+* **API Documentation (Swagger):** [https://api.labprojects.dev.br/docs](https://api.labprojects.dev.br/docs)
 
-## Expanding the ESLint configuration
+## Tech Stack
+- **Core:** React, TypeScript
+- **Build Tool:** Vite
+- **Styling:** CSS Modules (Vanilla CSS)
+- **Routing:** React Router DOM (upcoming)
+- **Network:** Native Fetch API
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Local Development Instructions
+To run this project locally on your machine:
 
-- Configure the top-level `parserOptions` property like this:
+1. Clone the repository.
+2. Navigate into the project folder: `cd devboard-frontend`
+3. Install the dependencies: 
+   ```bash
+   npm install
+   ```
+4. Start the local development server:
+   ```bash
+   npm run dev
+   ```
+5. Open your browser and navigate to the URL provided by Vite (usually `http://localhost:5173`).
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Available Scripts
+- `npm run dev`: Starts the development server.
+- `npm run build`: Compiles the application and runs the TypeScript compiler to catch any errors.
+- `npm run preview`: Bootstraps a local web server to preview the production build.
+
+## Project Structure
+```text
+src/
+ ├─ components/    # Reusable UI components (Button, Input, Card, ThemeToggle)
+ ├─ hooks/         # Custom React hooks (e.g., useTheme)
+ ├─ styles/        # Future global CSS extensions
+ ├─ App.tsx        # Application entry point / Current Design Showcase
+ ├─ index.css      # Design tokens (variables) and global CSS reset
+ └─ main.tsx       # React root DOM injector
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Design Goals
+- **Apple-like Aesthetic:** Clean, minimalist, extensive white space, and subtle depth.
+- **No Emojis:** Purely professional typographic interface.
+- **Native Theme Support:** Seamless Light and Dark mode managed natively via CSS variables and `localStorage`.
+- **Zero UI Libraries:** Built without heavy abstractions like Tailwind, MUI, or Bootstrap to ensure total control and a light bundle.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Next Steps
+- Setup React Router for page navigation.
+- Implement Authentication (Login Screen & JWT management).
+- Implement Dashboard Layout (Header, Sidebar).
+- Integrate with Backend API to perform CRUD operations on Projects and Tasks.
