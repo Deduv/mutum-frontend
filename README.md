@@ -1,63 +1,161 @@
 # DevBoard Frontend
 
-## Short Description
-A clean, elegant, and modern web interface for the DevBoard application, a system designed for managing projects and tasks. This frontend prototype is built with a minimalist, Apple-like design aesthetic to ensure a professional and distraction-free user experience.
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
+![CSS Modules](https://img.shields.io/badge/CSS_Modules-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white)
 
-## Current Status
-**Stage:** Initial Prototype / Foundation
-Currently, the project contains the foundational UI Design System and Theme System (Light/Dark mode) with atomic components (Button, Input, Card). The showcase is actively being developed before full API integration.
+## Project Description
 
-## Backend Integration
-This frontend application is specifically designed to consume the **DevBoard API** currently published in production.
-* **Backend API URL:** [https://api.labprojects.dev.br](https://api.labprojects.dev.br)
-* **API Documentation (Swagger):** [https://api.labprojects.dev.br/docs](https://api.labprojects.dev.br/docs)
+**DevBoard** is a modern, responsive, and highly performant task and project management web application. Built with React and TypeScript, it offers a seamless Apple-inspired user experience for managing software projects, tasks, and team productivity. It integrates with the production **DevBoard API**, providing secure and scalable backend functionality.
+
+## Features
+
+- **Authentication & Security:**
+  - Secure Login and Sign Up.
+  - JWT Authentication with protected routes.
+  - Comprehensive User Approval Workflow.
+- **Dashboard & Workflows:**
+  - **Projects CRUD:** Create, read, update, and delete projects.
+  - **Tasks CRUD:** Detailed task management tied to specific projects.
+  - **Custom Delete Actions:** Apple-like custom modals for irreversible actions.
+  - **Intelligent Sorting & Filtering:** Context-aware status filtering and priority sorting.
+- **UI / UX:**
+  - **Dark/Light Theme:** Native system-aware theme toggling.
+  - **Responsive Design:** Optimized for mobile, tablet, and desktop viewing.
 
 ## Tech Stack
-- **Core:** React, TypeScript
-- **Build Tool:** Vite
-- **Styling:** CSS Modules (Vanilla CSS)
-- **Routing:** React Router DOM (upcoming)
+
+- **Framework:** React 18
+- **Language:** TypeScript
+- **Bundler:** Vite
+- **Styling:** CSS Modules (Vanilla CSS, no external UI libraries)
+- **Routing:** React Router v6
+- **State Management:** React Hooks
 - **Network:** Native Fetch API
 
-## Local Development Instructions
-To run this project locally on your machine:
+## Architecture
 
-1. Clone the repository.
-2. Navigate into the project folder: `cd devboard-frontend`
-3. Install the dependencies: 
+```mermaid
+graph TD
+    Browser[Browser / Client] --> |HTTPS| Frontend[React Frontend]
+    Frontend --> |REST / JWT| API[DevBoard API on AWS]
+    API --> |SQL| Database[(PostgreSQL)]
+    
+    classDef client fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef react fill:#61DAFB,stroke:#333,stroke-width:2px,color:#000;
+    classDef api fill:#FF9900,stroke:#333,stroke-width:2px,color:#000;
+    classDef db fill:#336791,stroke:#333,stroke-width:2px,color:#fff;
+    
+    class Browser client;
+    class Frontend react;
+    class API api;
+    class Database db;
+```
+
+## Authentication Flow
+
+Authentication ensures strict tenant isolation and endpoint protection. 
+
+1. **Token Generation:** Upon successful login, the DevBoard API provides a JWT.
+2. **Local Storage:** The token is stored securely in the client browser.
+3. **Protected Routes:** React Router intercepts unauthenticated visits to the dashboard and redirects to `/login`.
+4. **Header Injection:** All outgoing requests to the `/api/v1/` endpoints include the `Authorization: Bearer <token>` header.
+
+## User Approval Flow
+
+To maintain strict security and accountability, DevBoard utilizes a manual review process for new users:
+
+1. **Sign Up:** User submits an email and password via the frontend.
+2. **Pending:** The backend creates the user with a `PENDING` status. Attempting to log in returns a `403 Forbidden` response.
+3. **Admin Approval:** An administrator manually verifies and updates the user's status to `ACTIVE` in the PostgreSQL database.
+4. **Login:** The user can now successfully authenticate and receive a JWT.
+5. **Dashboard:** The user gains full access to their isolated tenant on the DevBoard.
+
+## Screenshots
+
+*(Placeholders for future screenshots)*
+
+| Login & Sign Up | Dashboard (Light Mode) | Dashboard (Dark Mode) |
+| :---: | :---: | :---: |
+| ![Login Placeholder](https://via.placeholder.com/300x200?text=Login+Screen) | ![Dashboard Light](https://via.placeholder.com/300x200?text=Dashboard+Light) | ![Dashboard Dark](https://via.placeholder.com/300x200?text=Dashboard+Dark) |
+
+## Running Locally
+
+To run the DevBoard frontend locally:
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repository_url>
+   cd devboard-frontend
+   ```
+
+2. **Install dependencies:**
    ```bash
    npm install
    ```
-4. Start the local development server:
+
+3. **Start the development server:**
    ```bash
    npm run dev
    ```
-5. Open your browser and navigate to the URL provided by Vite (usually `http://localhost:5173`).
 
-## Available Scripts
-- `npm run dev`: Starts the development server.
-- `npm run build`: Compiles the application and runs the TypeScript compiler to catch any errors.
-- `npm run preview`: Bootstraps a local web server to preview the production build.
+4. **Build for production:**
+   ```bash
+   npm run build
+   ```
+
+## Environment Variables
+
+Currently, the application natively connects to the production DevBoard API endpoint without requiring local `.env` variables for the base configuration. 
+Future environments (Staging, Local) can be configured via Vite's `.env` capabilities.
+
+## Integration with DevBoard API
+
+The frontend connects directly to `https://api.labprojects.dev.br`. Key integrated routes include:
+
+- `POST /api/v1/auth/login` - Authentication
+- `POST /api/v1/users/` - User Registration
+- `GET/POST/DELETE /api/v1/projects/` - Project Management
+- `GET/POST/PATCH/DELETE /api/v1/tasks/` - Task Management
 
 ## Project Structure
+
 ```text
 src/
- ├─ components/    # Reusable UI components (Button, Input, Card, ThemeToggle)
- ├─ hooks/         # Custom React hooks (e.g., useTheme)
- ├─ styles/        # Future global CSS extensions
- ├─ App.tsx        # Application entry point / Current Design Showcase
- ├─ index.css      # Design tokens (variables) and global CSS reset
- └─ main.tsx       # React root DOM injector
+├── components/       # Reusable UI components (Button, Input, Card, Modal, etc.)
+├── pages/            # View-level components (Login, Dashboard)
+├── router/           # React Router configuration and ProtectedRoutes
+├── services/         # API integration (Fetch wrappers, Auth Storage)
+├── types/            # TypeScript interfaces and schemas
+├── App.tsx           # Root Application Component
+└── main.tsx          # React DOM entry point
 ```
 
-## Design Goals
-- **Apple-like Aesthetic:** Clean, minimalist, extensive white space, and subtle depth.
-- **No Emojis:** Purely professional typographic interface.
-- **Native Theme Support:** Seamless Light and Dark mode managed natively via CSS variables and `localStorage`.
-- **Zero UI Libraries:** Built without heavy abstractions like Tailwind, MUI, or Bootstrap to ensure total control and a light bundle.
+## Design System
 
-## Next Steps
-- Setup React Router for page navigation.
-- Implement Authentication (Login Screen & JWT management).
-- Implement Dashboard Layout (Header, Sidebar).
-- Integrate with Backend API to perform CRUD operations on Projects and Tasks.
+The application strictly adheres to a predefined design philosophy tailored for a premium user experience.
+
+- **Apple-inspired:** Clean borders, soft shadows, rounded corners, and native-feeling interactions.
+- **Minimalism:** Removing noise. No unnecessary emojis, heavy external CSS libraries, or cluttered layouts.
+- **Accessibility:** High-contrast tokens, readable Google fonts, semantic HTML, and proper focus states.
+- **Consistency:** Centralized CSS variables for colors, spacing, and typography to maintain uniform aesthetics across Light and Dark themes.
+
+## Production Environment
+
+The frontend is built using Vite, resulting in a highly optimized, minified bundle.
+Deployment is managed via automated CI/CD pipelines that push static assets to a CDN for blazing-fast global delivery. 
+
+## Future Improvements
+
+- Implementing drag-and-drop task reordering (Kanban view).
+- Real-time WebSockets synchronization.
+- Granular user roles and permissions within projects.
+
+## Author
+
+**Eduardo** (big_ed)  
+*Software Engineer & Architect*

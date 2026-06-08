@@ -34,3 +34,8 @@ dist-ssr
 
 # Temp OS files
 Thumbs.db
+
+# Build / test artifacts
+build/
+.vite/
+coverage/
