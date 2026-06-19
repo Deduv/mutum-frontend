@@ -376,6 +376,9 @@ export function Dashboard() {
           <Button variant="secondary" onClick={() => navigate('/invitations')}>
             Invitations
           </Button>
+          <Button variant="secondary" onClick={() => navigate('/admin/users')}>
+            Admin
+          </Button>
           <ThemeToggle />
           <Button variant="secondary" onClick={handleLogout}>Logout</Button>
         </div>

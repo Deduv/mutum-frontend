@@ -3,6 +3,7 @@ import { Login } from '../pages/Login/Login';
 import { Dashboard } from '../pages/Dashboard/Dashboard';
 import { Members } from '../pages/Members/Members';
 import { Invitations } from '../pages/Invitations/Invitations';
+import { AdminUsers } from '../pages/AdminUsers/AdminUsers';
 import { ProtectedRoute } from './ProtectedRoute';
 
 export function AppRouter() {
@@ -34,6 +35,14 @@ export function AppRouter() {
               <Invitations />
             </ProtectedRoute>
           } 
+        />
+        <Route
+          path="/admin/users"
+          element={
+            <ProtectedRoute>
+              <AdminUsers />
+            </ProtectedRoute>
+          }
         />
       </Routes>
     </BrowserRouter>

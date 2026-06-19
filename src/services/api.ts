@@ -4,6 +4,7 @@ import { Task, TaskListResponse } from '../types/task';
 import { OrganizationListResponse } from '../types/organization';
 import { OrganizationMemberListResponse } from '../types/member';
 import { OrganizationInvite, OrganizationInviteListResponse } from '../types/invite';
+import { User, UserListResponse } from '../types/user';
 import { getToken } from './authStorage';
 
 const API_BASE_URL = 'https://api.labprojects.dev.br';
@@ -155,6 +156,46 @@ export async function revokeOrganizationInvite(organizationId: number, inviteId:
     }
     throw new Error(`Falha ao revogar convite. (Status: ${response.status})`);
   }
+}
+
+export async function getPendingUsers(): Promise<UserListResponse> {
+  const token = getToken();
+  const response = await fetch(`${API_BASE_URL}/api/v1/users/pending`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    if (response.status === 403) {
+      throw new Error(`AdminAccessError: 403`);
+    }
+    throw new Error(`Falha ao buscar usuários pendentes. (Status: ${response.status})`);
+  }
+
+  return response.json();
+}
+
+export async function approveUser(userId: number): Promise<User> {
+  const token = getToken();
+  const response = await fetch(`${API_BASE_URL}/api/v1/users/${userId}/approve`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    if (response.status === 403) {
+      throw new Error(`AdminAccessError: 403`);
+    }
+    if (response.status === 404) {
+      throw new Error(`AdminAccessError: 404`);
+    }
+    throw new Error(`Falha ao aprovar usuário. (Status: ${response.status})`);
+  }
+
+  return response.json();
 }
 
 export async function getProjects(organizationId?: number): Promise<ProjectListResponse> {
