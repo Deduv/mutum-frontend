@@ -537,7 +537,7 @@ export function Dashboard() {
                       let assignedToText = 'Unassigned';
                       if (t.assigned_user_id !== null) {
                         const member = members.find(m => m.user_id === t.assigned_user_id);
-                        assignedToText = member ? `User ID: ${member.user_id}` : 'Unknown member';
+                        assignedToText = member ? (member.name || member.email || `User ID: ${member.user_id}`) : 'Unknown member';
                       }
 
                       return (
@@ -575,7 +575,7 @@ export function Dashboard() {
                               >
                                 <option value="">Unassigned</option>
                                 {members.map((m) => (
-                                  <option key={m.user_id} value={m.user_id}>User ID: {m.user_id}</option>
+                                  <option key={m.user_id} value={m.user_id}>{m.name || m.email || `User ID: ${m.user_id}`}</option>
                                 ))}
                               </select>
                               <select 
@@ -737,7 +737,7 @@ export function Dashboard() {
                   >
                     <option value="">Unassigned</option>
                     {members.map((m) => (
-                      <option key={m.user_id} value={m.user_id}>User ID: {m.user_id}</option>
+                      <option key={m.user_id} value={m.user_id}>{m.name || m.email || `User ID: ${m.user_id}`}</option>
                     ))}
                   </select>
                 </div>
