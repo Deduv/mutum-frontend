@@ -398,6 +398,30 @@ export function Dashboard() {
            </div>
         ) : (
           <div className={styles.contentWrapper}>
+            {activeOrganizationId && (
+              <div className={styles.metricsGrid}>
+                <div className={styles.metricCard}>
+                  <div className={styles.metricValue}>{projects.length}</div>
+                  <div className={styles.metricLabel}>Projects</div>
+                </div>
+                <div className={styles.metricCard}>
+                  <div className={styles.metricValue}>{tasks.length}</div>
+                  <div className={styles.metricLabel}>Tasks</div>
+                </div>
+                <div className={styles.metricCard}>
+                  <div className={styles.metricValue}>{tasks.filter(t => t.status === 'TODO').length}</div>
+                  <div className={styles.metricLabel}>TODO</div>
+                </div>
+                <div className={styles.metricCard}>
+                  <div className={styles.metricValue}>{tasks.filter(t => t.status === 'DOING').length}</div>
+                  <div className={styles.metricLabel}>Doing</div>
+                </div>
+                <div className={styles.metricCard}>
+                  <div className={styles.metricValue}>{tasks.filter(t => t.status === 'DONE').length}</div>
+                  <div className={styles.metricLabel}>Done</div>
+                </div>
+              </div>
+            )}
             <div className={styles.viewControls}>
               <div className={styles.tabs}>
                 <button 
