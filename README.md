@@ -1,4 +1,4 @@
-# DevBoard Frontend
+# Mutum Frontend
 
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
@@ -11,7 +11,7 @@
 
 ## Project Description
 
-**DevBoard** is a modern, responsive, and highly performant task and project management web application. Built with React and TypeScript, it offers a seamless Apple-inspired user experience for managing software projects, tasks, and team productivity. It integrates with the production **DevBoard API**, providing secure and scalable backend functionality.
+**Mutum** is a modern, responsive, and highly performant task and project management web application. Built with React and TypeScript, it offers a seamless Apple-inspired user experience for managing software projects, tasks, and team productivity. It integrates with the production **Mutum API**, providing secure and scalable backend functionality.
 
 ## Live Demo
 
@@ -176,5 +176,5 @@ All production API calls are securely routed to the official backend domain via 
 
 ## Author
 
-**Eduardo** (big_ed)  
+**Eduardo Santana**  
 *Software Engineer & Architect*
