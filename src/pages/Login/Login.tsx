@@ -7,6 +7,8 @@ import { ThemeToggle } from '../../components/ThemeToggle/ThemeToggle';
 import { login, createUser, ApiError } from '../../services/api';
 import { setToken, getToken } from '../../services/authStorage';
 import styles from './Login.module.css';
+import logoLight from '../../assets/mutum_logo_light.svg';
+import logoDark from '../../assets/mutum_logo_dark.svg';
 
 
 type AuthMode = 'login' | 'signup';
@@ -88,6 +90,10 @@ export function Login() {
             <ThemeToggle />
           </div>
           <div className={styles.brand}>
+            <div className={styles.logoIcon}>
+              <img src={logoLight} alt="Mutum" className="logoLight" />
+              <img src={logoDark} alt="Mutum" className="logoDark" />
+            </div>
             <h1 className={styles.title}>mutum</h1>
           </div>
           <p className={styles.subtitle}>

@@ -127,3 +127,8 @@ body {
   box-shadow: 0 0 0 3px var(--color-focus-ring);
 }
 
+.logoLight { display: block; width: 100%; height: 100%; object-fit: contain; }
+.logoDark { display: none; width: 100%; height: 100%; object-fit: contain; }
+
+[data-theme='dark'] .logoLight { display: none; }
+[data-theme='dark'] .logoDark { display: block; }

@@ -146,3 +146,8 @@
   margin-bottom: var(--space-1);
 }
 
+.logoIcon {
+  width: 64px;
+  height: 64px;
+}
+
