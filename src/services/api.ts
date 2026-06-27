@@ -37,13 +37,13 @@ export async function login(email: string, password: string): Promise<LoginRespo
   return response.json();
 }
 
-export async function createUser(email: string, password: string): Promise<void> {
+export async function createUser(email: string, password: string, name?: string): Promise<void> {
   const response = await fetch(`${API_BASE_URL}/api/v1/users/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email, password, name }),
   });
 
   if (!response.ok) {

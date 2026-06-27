@@ -16,6 +16,7 @@ type AuthMode = 'login' | 'signup';
 export function Login() {
   const navigate = useNavigate();
   const [authMode, setAuthMode] = useState<AuthMode>('login');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -59,10 +60,17 @@ export function Login() {
   const handleSignUp = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
+
+    if (!name.trim()) {
+      setError('Name is required.');
+      return;
+    }
+
     setLoading(true);
 
     try {
-      await createUser(email, password);
+      await createUser(email, password, name);
+      setName('');
       setEmail('');
       setPassword('');
       setShowSuccessModal(true);
@@ -121,6 +129,16 @@ export function Login() {
         <form className={styles.form} onSubmit={authMode === 'login' ? handleSignIn : handleSignUp}>
           {error && <div className={styles.errorBanner}>{error}</div>}
           
+          {authMode === 'signup' && (
+            <Input 
+              label="Name" 
+              type="text" 
+              placeholder="Your name" 
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required 
+            />
+          )}
           <Input 
             label="Email" 
             type="email" 
